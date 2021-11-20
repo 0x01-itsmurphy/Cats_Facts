@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Cats Facts',
       theme: ThemeData(
         primarySwatch: Colors.amber,
@@ -64,43 +65,65 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text("Cats Facts"),
+        title: const Text("Cat Facts"),
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Image.network(
-              'https://source.unsplash.com/480x480/?cats,meme,lol',
-              fit: BoxFit.cover,
-            ),
-          ),
-          Container(
-            color: Colors.amber[50],
-            child: Center(
-              child: dataResponse == null
-                  ? const Text("Fact's is Loading...")
-                  : Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Text(
-                        "$dataResponse",
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                        ),
-                      ),
+      body: RefreshIndicator(
+        onRefresh: catsApi,
+        child: Column(
+          children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    image: DecorationImage(
+                      image: Image.network(
+                        "https://source.unsplash.com/480x480/?cats,meme",
+                      ).image,
+                      fit: BoxFit.cover,
                     ),
+                  ),
+                  // child: Image.network(
+                  //   'https://source.unsplash.com/480x480/?cats,meme',
+                  //   fit: BoxFit.cover,
+                  // ),
+                ),
+              ),
             ),
-          ),
-          Container(
-            color: Colors.amber[50],
-            child: Center(
-              child: dataLength == null
-                  ? const Text("Length is Loading...")
-                  : Text("Length: $dataLength"),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.amber[50],
+                ),
+                child: Center(
+                  child: dataResponse == null
+                      ? const Text("Fact's is Loading...")
+                      : Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Text(
+                            "$dataResponse",
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 22,
+                            ),
+                          ),
+                        ),
+                ),
+              ),
             ),
-          ),
-        ],
+            Container(
+              color: Colors.amber[50],
+              child: Center(
+                child: dataLength == null
+                    ? const Text("Length is Loading...")
+                    : Text("Words Length: $dataLength"),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
