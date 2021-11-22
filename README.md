@@ -2,6 +2,9 @@
 
 A new Flutter project. Cats Facts (API Intigration)
 
+## Screenshots
+<img src="assets/screenshots/splash.png" height="500em"/>&nbsp;<img src="assets/screenshots/home.png" height="500em" />
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
